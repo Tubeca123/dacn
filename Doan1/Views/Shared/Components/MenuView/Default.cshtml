@@ -1,0 +1,185 @@
+﻿@using Doan1.Ulitities
+@model IList<Doan1.Models.Menu>
+<!-- Header Section Begin -->
+<style>
+/*     .dropdown {
+        position: relative;
+        display: inline-block;
+    } */
+
+    .button-content {
+        display: flex;
+        align-items: center;
+        margin-top: 5px;
+    }
+
+    .dropbtn {
+        border: none;
+        background-color: white;
+    }
+
+    #img {
+        width: 42px;
+        height: 42px;
+    }
+
+    .dropdown-toggle {
+        margin-left: 1px;
+    }
+
+    .dropdown-content {
+        width: auto;
+        display: none;
+        position: absolute;
+        background-color: #ffffff;
+        min-width: 150px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+        font-size: 14px;
+        transition: 0.3s;
+    }
+
+        .dropdown-content a:hover {
+            background-color: #f6f9ff;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 10px ;
+            text-decoration: none;
+            display: block;
+            text-decoration: none;
+            border-bottom: 1px solid aliceblue;
+        }
+
+    .dropdown-header {
+        text-align: center;
+        align-content: center;
+    }
+
+ /*    .search-container {
+        position: relative;
+        display: inline-block;
+    }
+
+    input[name="keywords"] {
+        
+        width: 120px;
+        height:27px;
+        padding-right: 35px; /* Dùng để để chừa chỗ cho button */
+    }
+
+    button.icon_search {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 25px; /* Điều chỉnh độ rộng theo ý muốn */
+        height: 25px; /* Điều chỉnh độ cao theo ý muốn */
+        background-color: rgba(76, 175, 80, 0);
+        color:black;
+        border: none;
+        border-radius: 0 4px 4px 0; /* Bo góc chỉ ở phía bên phải */
+        cursor: pointer;
+    } */
+</style>
+@{
+    <script>
+        function toggleDropdown() {
+            var dropdownContent = document.getElementById("myDropdown");
+            if (dropdownContent.style.display === "none") {
+                dropdownContent.style.display = "block";
+            } else {
+                dropdownContent.style.display = "none";
+            }
+        }
+
+    </script>
+}
+<header class="header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-3 col-lg-2">
+                <div class="header__logo">
+                    <a href="https://localhost:7226/admin"><img src="~/img/logo2.png" style="max-width: 100px; max-height: 100px;" alt=""></a>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-7" >
+                <nav class="header__menu">
+                    <ul>
+                        @foreach (var menu in Model.Where(m => m.Levels == 1).OrderBy(n => n.Position))
+                        {
+                            var pid = menu.MenuID;
+                            string url = Functions.TitleSlugGeneration("list", menu.MenuName, menu.MenuID);
+                            if (!string.IsNullOrEmpty(menu.Alias))
+                            {
+                                url = menu.Alias;
+                            }
+                            var Smenu = Model.Where(p => p.ParentID == pid).OrderBy(p => p.Position).ToList();
+                            <li>
+                                <a href="/@url">@menu.MenuName</a>
+                                @if (Smenu.Count > 0)
+                                {
+                                    <ul class="dropdown">
+                                        @foreach (var smn in Smenu)
+                                        {
+                                            <li><a href="/@url">@smn.MenuName</a></li>
+                                        }
+                                    </ul>
+                                }
+                            </li>
+                        }
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-lg-3">
+
+
+                <div class="header__right">
+                    
+                    @if (!Functions.IsLogin())
+                    {
+                        <div class="header__right__auth">
+                            <a href="~/Home/Login">Đăng Nhập</a>
+                            <a href="~/Home/Register">Đăng Kí</a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="header__right__auth">
+                            <a href="~/Home/Profile">@Functions._UserName</a>
+                            <a href="~/Home/Logouts">Đăng Xuất</a>
+                        </div>
+
+                       @*  <div class="header__right__auth">
+                            <button class="dropbtn" onclick="toggleDropdown()">
+                                <div class="button-content">
+                                    <span class="d-none d-md-block dropdown-toggle" style="font-weight:600">@Functions._UserName</span>
+                                </div>
+                            </button>
+                            <div class="dropdown-content" id="myDropdown">
+                                <li class="dropdown">
+                                    <h6 >@Functions._FullName</h6>
+                                </li>
+                                <a class="dropdown" asp-controller="Home" asp-action="Profile">Thông tin cá nhân</a>
+                                <a class="dropdown"  asp-controller="Home" asp-action="Logouts">Đăng xuất</a>
+                            </div>
+                        </div> *@
+
+                    }
+                    <ul class="header__right__widget">
+                        <li><span class="icon_search search-switch"></span></li>
+                        
+                        <li>
+                            @await Component.InvokeAsync("CartWidget")
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="canvas__open">
+            <i class="fa fa-bars"></i>
+        </div>
+    </div>
+</header>
+
+<!-- Header Section End -->

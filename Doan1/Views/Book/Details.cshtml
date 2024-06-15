@@ -1,0 +1,260 @@
+﻿@model Doan1.Models.Book;
+@using Doan1.Areas.Admin.Models;
+@using Doan1.Ulitities;
+@{
+    List<BookCategory> categories = ViewBag.BookctList;
+    List<BookComment> comments = ViewBag.Comment;
+    List<Account> accounts = ViewBag.Accou;
+}
+<style>
+    .comment-form {
+        width: 100%;
+        margin-top: 20px;
+    }
+
+        .comment-form .form-group {
+            margin-bottom: 15px;
+        }
+
+        .comment-form .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+            .comment-form .form-control:focus {
+                outline: none;
+                border-color: #007bff;
+                box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+            }
+
+        .comment-form .site-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: red;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+            .comment-form .site-btn:hover {
+                background-color: #0056b3;
+            }
+</style>
+
+  <div class="breadcrumb-option">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb__links">
+                        <a href="./index.html"><i class="fa fa-home"></i> Home</a>
+                        <a href="#">@(categories.FirstOrDefault(m => m.BookCategoryID == Model.BookCategoryID)?.Name)’s </a>
+                        <span>@Model.BookName</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+    <!-- Product Details Section Begin -->
+    <section class="product-details spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="product__details__pic">
+                        <div class="product__details__slider__content">
+                            <div class="product__details__pic__slider owl-carousel">
+                                <img  class="product__big__img" src="@Model.Image" alt="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="product__details__text">
+                        <h3>@Model.BookName</h3>
+                        <div>
+                            @if(Model.PriceSale==0){
+							<div class="product__details__price"> @Model.Price VNĐ</div>
+                            }
+                            else
+                            {
+                            <div class="product__details__price">@(Model.Price - Model.PriceSale) VNĐ <span> @Model.Price VNĐ</span></div>
+                        }
+                        </div>
+
+                        
+
+                        <p>@Model.Abstract</p>
+                        <div class="product__details__button">
+                                <div class="quantity">
+                                <span>Số lượng: </span>
+                                <div class="pro-qty">
+                                <input type="text" id="Quantity" value="1">
+                                </div>
+                            </div>
+                            <a href="#" class="cart-btn add-to-cart" data-id="@Model.BookID"><span class="icon_bag_alt"></span> Thêm vào giỏ hàng</a>
+                        </div>
+                        <div class="product__details__widget">
+                            <ul>
+                                <li>
+                                    <span>Kho hàng:</span>
+                                    <div class="stock__checkbox">
+                                        <label for="stockin">
+                                            In Stock
+                                            <input type="checkbox" id="stockin">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                </li>
+                            <li>
+                                <span>Thể loại:</span>
+                                <p>@(categories.FirstOrDefault(m => m.BookCategoryID == Model.BookCategoryID)?.Name)</p>
+                            </li>
+                                <li>
+                                    <span>Khuyến mãi:</span>
+                                    <p>Miễn phí vận chuyển</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="product__details__tab">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab">Thông tin</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab">Bình luận ( @comments.Count )</a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tabs-1" role="tabpanel">
+                                <h6>Description</h6>
+                                <p>@Model.Abstract</p>
+                            </div>
+
+                            <div class="tab-pane" id="tabs-3" role="tabpanel">
+                                <h6>Bình luận</h6>
+                            
+
+                            <div class="blog__details__comment">
+                                @foreach (var items in comments.OrderByDescending(c => c.BookCommentId))
+                                {
+                                    <div class="blog__comment__item">
+                                        @foreach (var itemss in accounts.Where(a => a.AccountId == items.AccountID))
+                                        {
+                                            <div class="blog__comment__item__pic">
+                                                <img src="/files/img/avatar/@itemss.Avatar" alt="" style="height: 60px; width: 60px; border-radius: 100%;">
+                                            </div>
+                                            <div class="blog__comment__item__text">
+                                                <h6>@itemss.FullName</h6>
+                                                <p>@items.Details</p>
+                                                <ul>
+                                                    <li><i class="fa fa-clock-o"></i> @items.CreateDate</li>
+                                                </ul>
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                            </div>
+
+                            <form class="comment-form">
+                                <div class="form-group">
+                                    <textarea id="c_message2" class="form-control" placeholder="Viết bình luận"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <button id="c_sendP" class="site-btn btn-primary" style="color:#ffff">Bình luận</button>
+                                </div>
+                            </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Product Details Section End -->
+@section AddToCart{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".add-to-cart").click(function (e) {
+                e.preventDefault();
+
+                // Lấy giá trị số lượng từ trường nhập liệu
+                var quantity = $("#Quantity").val();
+
+
+                // Gửi dữ liệu qua Ajax
+                $.ajax({
+                    url: "/Cart/AddToCart",
+                    data: {
+                        id: $(this).data("id"),
+                        quantity: quantity // Truyền giá trị số lượng
+                    },
+                    success: function (data) {
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: "top-end",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        });
+                        Toast.fire({
+                            icon: "success",
+                            title: "Thêm giỏ hàng thành công"
+                        });
+                        $("#cartItemCount").text(data.cartItemCount);
+                    },
+                    error: function () {
+                        toastr.error('Đã xảy ra lỗi!');
+                    }
+                });
+            });
+        });
+    </script>
+}
+@section BookComment{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).ready(function () {
+            $("#c_sendP").click(function (e) {
+                e.preventDefault();
+                var _message = $("#c_message2").val();
+                var _id = @Model.BookID;
+                $.ajax({
+                    url: "/BookComment/Add",
+                    type: "POST",
+                    data: { message: _message, id: _id },
+                    success: function (result) {
+                        if (result) {
+                            $("#c_message2").val("");
+                            const Toast = Swal.mixin({
+                                toast: true,
+                                position: "top-end",
+                                showConfirmButton: false,
+                                timer: 1000,
+                            });
+                            Toast.fire({
+                                icon: "success",
+                                title: "Bình luận thành công"
+                            });
+                        }
+                        else {
+                            toastr.error('Đã xảy ra lỗi!');
+                        }
+                    }
+                })
+            });
+        })
+    </script>
+}

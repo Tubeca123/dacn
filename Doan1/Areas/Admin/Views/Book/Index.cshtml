@@ -1,0 +1,84 @@
+﻿@using Doan1.Models;
+@model IList<Book>;
+
+@{
+    List<BookCategory> categories = ViewBag.BookctList;
+}
+<style>
+    .table-borderless #text2 {
+        display: block;
+        display: -webkit-box;
+        -webkit-line-clamp: 1; /* số dòng hiển thị */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+</style>
+<main id="main" class="main">
+    <div class="Pagetitle">
+        <h2>Danh sách sản phẩm</h2>
+    </div>
+    <p>
+        <a type="button" class="btn btn-success" asp-area="Admin" asp-controller="Book" asp-action="Create">
+            <i class="bi bi-file-earmark-text me-1">  Them Sách</i>
+        </a>
+    </p>
+
+    <section class="section dashboard">
+        <div class="row">
+            <div col-12>
+                <div class="card recent-sales overflow-auto">
+                    <div class="card-boy mt-4">
+                        <table class="table table-borderless datatable">
+                            <thead>
+                                <tr>
+                                    <th class="col-1 text-center">#</th>
+                                    <th class="col-2 text-center">Tên sách </th>
+                                    <th class="col-2 text-center">Tên thể loại</th>
+                                    <th class="col-4 text-center">Thông tin sách </th>
+                                    <th class="col-1 text-center">Giá</th>
+                                    <th class="col-1 text-center">Ẩn/Hiện</th>
+                                    <th class="col-1 text-center">Chức Năng</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <th class="text-center" scope="row">@item.BookID</th>
+                                        <td>
+                                            <a asp-area="Admin" asp-controller="Menu" asp-action="Details"
+                                               asp-route-id="@item.BookID" class="text-primary">@item.BookName</a>
+                                        </td>
+                                        @{
+                                            var categori = categories.FirstOrDefault(m => m.BookCategoryID == item.BookCategoryID);
+                                        }
+                                        <td class="text-center">@categori.Name</td>
+                                        <td class="text-center" ><img src="@item.Image" style="width: 80px;height:80px"/></td>
+                                        <td class="text-center">@item.Price VNĐ</td>
+
+                                        <td class="text-center">@item.IsActive</td>
+                                        <td class="text-center">
+                                            <a asp-area="Admin" asp-controller="Book" asp-action="Edit"
+                                               asp-route-id="@item.BookID" class="btn btn-primary btn-sm"
+                                               title="Sửa nội dung sản phẩm">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                            <a asp-area="Admin" asp-controller="Book" asp-action="Delete"
+                                               asp-route-id="@item.BookID" class="btn btn-denger btn-sm"
+                                               title="Xóa sản phẩm">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+</main>

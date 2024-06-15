@@ -1,0 +1,49 @@
+﻿@using Doan1.Models;
+@using Doan1.Ulitities;
+@model IList<BookCategory>
+<!-- Categories Section Begin -->
+@{
+    var item = Model.FirstOrDefault(m => m.BookCategoryID == 6);
+}
+<section class="categories">
+    <div class="container-fluid">
+        
+        <div class="row">
+		
+            <div class="col-lg-6 p-0">
+                <div class="categories__item categories__large__item set-bg"
+                     data-setbg="@item.Image">
+                    <div class="categories__text">
+                        <h1>@item.Name</h1>
+                        <p>@item.Description</p>
+                        <a asp-controller="Book" asp-action="List" asp-route-id="@item.BookCategoryID">Xem ngay</a>
+                    </div>
+                </div>
+            </div>
+				
+            <div class="col-lg-6">
+				
+                <div class="row">
+					@foreach (var items in Model.Where(m=>m.BookCategoryID!=item.BookCategoryID))
+					{
+                    <div class="col-lg-6 col-md-6 col-sm-6 p-0">
+						
+                        <div class="categories__item set-bg" data-setbg="@items.Image">
+                            <div class="categories__text">
+                                <h4>@items.Name</h4>
+                                <p>@items.Description</p>
+                                <a asp-controller="Book" asp-action="List" asp-route-id="@items.BookCategoryID">Xem ngay</a>
+                            </div>
+                        </div>
+                        
+                    </div>
+					}
+
+                </div>
+					
+            </div>
+				
+        </div>
+    </div>
+</section>
+<!-- Categories Section End -->

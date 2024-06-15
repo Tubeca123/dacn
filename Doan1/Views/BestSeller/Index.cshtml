@@ -1,0 +1,115 @@
+﻿@model IList<Doan1.Models.Book>
+@using Doan1.Ulitities;
+<!-- Shop Section Begin -->
+<section class="shop spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-3">
+                <div class="shop__sidebar">
+                    <div class="sidebar__categories">
+                        <div class="section-title">
+                            <h4>Thể loại</h4>
+                        </div>
+                        <div class="categories__accordion">
+                            <div class="accordion" id="accordionExample">
+                                <form asp-controller="Book" asp-action="List" data-id="BookCategoryID">
+                                    <div class="card">
+                                        <div class="row mb-3">
+                                            <select id="BookCategoryID" name="id" class="form-control"
+                                                    asp-items="@(new SelectList(ViewBag.mnList, "Value", "Text"))">
+
+                                                <option value="">----Chọn thể loại----</option>
+                                            </select>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary ">Lọc</button>
+                                    </div>
+                                </form>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-9">
+                <div class="row">
+                    @foreach (var items in Model)
+                    {
+                        <div class="col-lg-4 col-md-6">
+                            <div class="product__item">
+                                <div class="product__item__pic set-bg" data-setbg="@items.Image">
+                                    <ul class="product__hover">
+                                        <li><a href="@items.Image" class="image-popup"><span class="arrow_expand"></span></a></li>
+                                        <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                                        <li><a href="#" class=" add-to-cart" data-id="@items.BookID" id="Quantity"><span class="icon_bag_alt"></span></a></li>
+                                    </ul>
+                                </div>
+                                <div class="product__item__text">
+                                    <h6><a asp-controller="Book" asp-action="Details" asp-route-id="@items.BookID">@items.BookName</a></h6>
+                                    @if (@items.PriceSale == 0)
+                                    {
+                                        <div class="product__price">VNĐ @items.Price </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="product__price">VNĐ @items.PriceSale <span>VNĐ @items.Price</span></div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div class="col-lg-12 text-center">
+                        <div class="pagination__option">
+                            <a href="#">1</a>
+                            <a href="#">2</a>
+                            <a href="#">3</a>
+                            <a href="#"><i class="fa fa-angle-right"></i></a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@section AddToCart{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".add-to-cart").click(function (e) {
+                e.preventDefault();
+                // Lấy giá trị số lượng từ trường nhập liệu
+                var quantity = $("#Quantity").val();
+
+                // Nếu cần kiểm tra số lượng hợp lệ, bạn có thể thêm điều kiện ở đây.
+
+                // Gửi dữ liệu qua Ajax
+                $.ajax({
+                    url: "/Cart/AddToCart",
+                    data: {
+                        id: $(this).data("id"),
+                        quantity: 1 // Truyền giá trị số lượng
+                    },
+                    success: function (data) {
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: "top-end",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        });
+                        Toast.fire({
+                            icon: "success",
+                            title: "Thêm giỏ hàng thành công"
+                        });
+                        $("#cartItemCount").text(data.cartItemCount);
+                    },
+                    error: function () {
+                        toastr.error('Đã xảy ra lỗi!');
+                    }
+                });
+            });
+        });
+    </script>
+}
+<!-- Shop Section End -->

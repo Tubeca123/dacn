@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Doan1",
+    "\\Doan1\\Areas",
+    "\\Doan1\\Areas\\Admin",
+    "\\Doan1\\Areas\\Admin\\Controllers",
+    "\\Doan1\\Views",
+    "\\Doan1\\Views\\Home",
+    "\\Doan1\\Views\\Shared",
+    "\\Doan1\\Views\\Shared\\Components",
+    "\\Doan1\\Views\\Shared\\Components\\BookCategory"
+  ],
+  "SelectedNode": "\\Doan1\\Views\\Shared\\Components\\BookCategory\\Default.cshtml",
+  "PreviewInSolutionExplorer": false
+}

@@ -1,0 +1,6 @@
+﻿@using Doan1.Ulitities
+@model Doan1.Models.Cart
+<a href="/Cart/Index">
+    <span class="icon_bag_alt"></span>
+	<div class="tip" id="cartItemCount">@(Model?.Lines.Count ?? 0)</div>
+</a>

@@ -1,0 +1,137 @@
+﻿@model Doan1.Areas.Admin.Models.Account;
+
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+
+    <main id="main" class="main">
+
+        <div class="pagetitle">
+            <h1>Profile</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item">Users</li>
+                    <li class="breadcrumb-item active">Profile</li>
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
+
+        <section class="section profile">
+            <div class="row">
+                <div class="col-xl-4">
+
+                    <div class="card">
+                        <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+
+                            <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+                            <h2>@Model.UserName</h2>
+                            <h3>@Model.Email</h3>
+                            <div class="social-links mt-2">
+                                <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                                <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                                <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                                <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-xl-8">
+
+                    <div class="card">
+                        <div class="card-body pt-3">
+                            <div class="tab-content pt-2">
+                            </div><!-- End Bordered Tabs -->
+                            <!-- Profile Edit Form -->
+                            <form asp-controller="Home" asp-action="EditProfile" method="post" enctype="multipart/form-data">
+                                <div class="row mb-3">
+                                    <input type="hidden" asp-for="AccountId" />
+
+                                </div>
+
+
+                                <div class="row mb-3">
+                                    <div class="col-sm-2">
+                                        <div class="input-group-prepend">
+                                            <button class="btn btn-success" type="button" onclick="document.getElementById('fileInput').click();">Chọn ảnh</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <input asp-for="Avatar" type="text" id="file_input" aria-describedby="button-addon2" class="form-control">
+                                    </div>
+                                </div>
+                                <input type="file" id="fileInput" style="display: none;" onchange="updateFilePath(this)">
+
+
+
+                                <div class="row mb-3">
+                                    <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Họ tên</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <input type="text" class="form-control" asp-for="FullName">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="username" class="col-md-4 col-lg-3 col-form-label">Tên người dùng</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <input type="text" class="form-control" asp-for="UserName">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="about" class="col-md-4 col-lg-3 col-form-label">Thông tin</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <textarea class="form-control" id="about" style="height: 100px" asp-for="Abstract"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="address" class="col-md-4 col-lg-3 col-form-label">Địa chỉ</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <input type="text" class="form-control" id="address" asp-for="Address">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="BirthDate" class="col-md-4 col-lg-3 col-form-label">Ngày Sinh</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <input type="date" class="form-control" asp-for="Birthday">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label class="col-md-4 col-lg-3 col-form-label">Số điện thoại</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <input asp-for="Phone" type="text" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label class="col-md-4 col-lg-3 col-form-label">Email</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <input asp-for="Email" type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <input asp-for="IsActive" value="true" type="hidden" />
+                                <input asp-for="RoleID" value="2" type="hidden" />
+                                <input asp-for="Password" type="hidden" />
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-primary ">Lưu ngay</button>
+                                </div>
+                            </form><!-- End Profile Edit Form -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main><!-- End #main -->
+
+</body>
+
+</html>
+<script>
+    function updateFilePath(input) {
+        var fileInput = document.getElementById('file_input');
+        fileInput.value = input.files[0].name;
+    }
+</script>

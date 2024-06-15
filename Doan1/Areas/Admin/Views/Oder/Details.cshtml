@@ -1,0 +1,69 @@
+﻿@model IList<Doan1.Models.OderDetai> ;
+@using Doan1.Ulitities;
+@{
+    IList<Book> book = ViewBag.Book;
+}
+
+<main id="main" class="main">
+    <div class="Pagetitle">
+        <h2>Đơn hàng chờ</h2>
+    </div>
+
+
+    <section class="section dashboard">
+        <div class="row">
+            <div col-12>
+                <div class="card recent-sales overflow-auto">
+                    <div class="card-boy mt-4">
+                        <table class="table table-borderless ">
+                            <thead>
+                                <tr>
+                                    <th class="col-1 text-center">Tên sản phẩm</th>
+                                    <th class="col-3 text-center">Giá tiền</th>
+                                    <th class="col-1 text-center">Số lượng</th>
+                                    <th class="col-1 text-center">Tổng tiền</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    int i = 1;
+                                    decimal tt = 0;
+                                }
+                                @foreach (var item in Model)
+                                {
+                                    tt += item.IntoMoney;
+                                    var pd = book.FirstOrDefault(p => p.BookID == item.BookId);
+@*                                     Account? ac = account.FirstOrDefault(a => a.AccountId == item.AccounId);
+ *@                                    <tr>
+                                        <td class="text-center">@pd.BookName</td>
+                                        <td class="text-center">@((pd.Price - (pd.PriceSale)))</td>
+                                        <td class="text-center">@item.Quantity</td>
+                                        <td class="text-center">
+                                            @item.IntoMoney VNĐ
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+
+                        </table>
+                        <div class="row justify-content-end">
+                            <div class="col-auto">
+                                <div class="cart__total__procced">
+                                    <ul>
+                                        <li>Tổng cộng : <span>@tt VNĐ</span></li>
+                                    </ul>
+
+                                </div>
+                            </div>
+                        </div>
+                        <a asp-controller="Oder" asp-action="Index1" class="btn btn-lg btn-warning p-2">Quay lại</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+</main>
+

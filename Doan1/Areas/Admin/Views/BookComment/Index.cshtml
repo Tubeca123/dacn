@@ -1,0 +1,60 @@
+﻿@using Doan1.Models;
+@model IList<Book>;
+
+@{
+    List<BookComment> cmt = ViewBag.Cmt;
+}
+
+<main id="main" class="main">
+    <div class="Pagetitle">
+        <h2>Danh sách sản phẩm có bình luận</h2>
+    </div>
+    <section class="section dashboard">
+        <div class="row">
+            <div col-12>
+                <div class="card recent-sales overflow-auto">
+                    <div class="card-boy mt-4">
+                        <table class="table table-borderless datatable">
+                            <thead>
+                                <tr>
+                                    <th class="col-1 text-center">Stt</th>
+                                    <th class="col-3 text-center">Hình ảnh </th>
+                                    <th class="col-8 text-center">Tên sách</th>
+                                    <th class="col-2 text-center">Chức Năng</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    var Cmt = cmt.FirstOrDefault(m => m.BookID == item.BookID);
+                                    if (Cmt != null)
+                                    {
+                                        <tr>
+                                            <th class="text-center" scope="row">@item.BookID</th>
+                                            <th class="text-center" scope="row"><img src="@item.Image" style="width:80px" /></th>
+                                            <td>
+                                                <a asp-area="Admin" asp-controller="BookComment" asp-action="ListComment"
+                                                   asp-route-id="@item.BookID" class="text-primary">@item.BookName</a>
+                                            </td>
+                                            <td class="text-center">
+                                                <a asp-area="Admin" asp-controller="BookComment" asp-action="ListComment"
+                                                   asp-route-id="@item.BookID" class="btn btn-success btn-sm"
+                                                   title="Xem bình luận">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+</main>

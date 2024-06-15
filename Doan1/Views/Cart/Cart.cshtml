@@ -1,0 +1,128 @@
+﻿
+@model Cart 
+@using Doan1.Ulitities;
+
+
+<section class="shop-cart spad">
+	@if (Model?.Lines.Count > 0)
+	{
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="shop__cart__table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Sản phẩm</th>
+                                    <th>Giá tiền</th>
+                                    <th>Số lượng</th>
+                                    <th>Tổng </th>
+                                    <th>Chức năng </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var lines in Model?.Lines)
+                                {
+                                    <tr>
+                                        <td class="cart__product__item">
+                                            <img src="@lines.Product.Image" alt="" style="max-width: 100px; max-height: 100px;">
+                                            <div class="cart__product__item__title">
+                                                <h6>@lines.Product.BookName</h6>
+                                            </div>
+                                        </td>
+                                        <td class="cart__price">@((lines.Product.Price -( lines.Product.PriceSale )))</td>
+                                        <td class="">
+                                            <div class="product__details__button">
+                                                <div class="quantity">
+                                                    <div class="pro-qty" style="margin-top:35px">
+                                                    <input type="text" id="@($"quantity-{(lines.Product.BookID  )}")" value="@lines.Quantity">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="cart__total">@((lines.Product.Price -lines.Product.PriceSale) * lines.Quantity) VNĐ</td>
+                                        <td class="cart__total">
+                                            <a style="text-decoration:none;color:white" class="btn btn-sm btn-danger" asp-controller="Cart" asp-action="Remove" asp-route-id="@lines.Product.BookID">Xóa</a>
+                                        </td>
+
+@*                                         <td class="cart__close"><a asp-controller="Cart" asp-action="Remove" asp-route-id="@lines.Product.BookID" class="icon_close"></a></td>
+ *@                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="cart__btn">
+                        <a href="#">Tiếp tục mua sắm</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="discount__content">
+                        <h6>Mã giảm giá</h6>
+                        <form action="#">
+                            <input type="text" >
+                            <button type="submit" class="site-btn">Thêm</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-4 offset-lg-2">
+                    <div class="cart__total__procced">
+                        <ul>
+                            <li>Tổng cộng <span>@Model.ComputeTotalValue() VNĐ</span></li>
+                        </ul>
+                        <a href="/Cart/Details" class="primary-btn">Tạo đơn hàng</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="alert alert-info" role="alert">
+                        <strong>Thông báo!</strong> Hiện tại không có sản phẩm nào trong giỏ hàng.
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</section
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).ready(function () {
+            $(".updatecartitem").click(function (e) {
+                e.preventDefault();
+                var id = $(this).data("id");
+                var quantity = $("#quantity-" + id).val();
+                $.ajax({
+                    url: "Cart/Update",
+                    type: "POST",
+                    data: {
+                        id: id,
+                        quantity: quantity },
+                    success: function (rs) {
+                        if (rs.success) {
+                            setTimeout(function () {
+                                window.location.href = "/Cart";
+                            }, 700);                          
+                        }
+                        else{
+                            toastr.error('Cập nhật không thành công');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+}

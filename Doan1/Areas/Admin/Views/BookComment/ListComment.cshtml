@@ -1,0 +1,161 @@
+﻿@using Doan1.Models;
+@using Doan1.Areas.Admin.Models;
+@using Doan1.Ulitities;
+@model IList<BookComment>
+
+@{
+    List<Account> contact = ViewBag.contact;
+}
+
+<style>
+    .message-lista {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .message-itema {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        border-bottom: 0.1px solid #899bbd;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+        .message-itema a {
+            text-decoration: none;
+            color: #000;
+            background-color: transparent;
+            display: flex;
+            align-items: start;
+        }
+
+        .message-itema img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .message-itema h4 {
+            margin: 5px 0;
+            font-size: 16px;
+        }
+
+        .message-itema p {
+            margin: 0;
+        }
+
+    .dropdown-footera {
+        padding: 10px;
+        text-align: center;
+    }
+
+    .text_pt {
+        display: block;
+        display: -webkit-box;
+        -webkit-line-clamp: 2; /* số dòng hiển thị */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+</style>
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Danh sách bình luận bài viết</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/Admin/Home/Index">Trang chủ</a></li>
+                <li class="breadcrumb-item">Quản lý bình luận sản phẩm</li>
+            </ol>
+        </nav>
+    </div>
+    <section class="section profile">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body pt-3" style="margin-top:15px;margin-left:10px">
+                        <ul class="message-lista" style="margin-top:10px">
+                            @if (Model.Count == 0)
+                            {
+                                <li style="text-align:center;color:red">Bài viết chưa có bình luận !</li>
+                            }
+                            else
+                            {
+                                @foreach (var items in Model)
+                                {
+                                    @foreach (var item in contact.Where(i => (i.AccountId) == (items.AccountID)))
+                                    {
+                                        <li class="message-itema">
+                                            <a asp-area="Admin" asp-controller="BookComment" asp-action="Detail" asp-route-id="@items.BookCommentId">
+                                                <img src="/files/img/avatar/@item.Avatar" alt="" class="rounded-circle">
+                                                <div class="message-contenta">
+                                                    <h4>@item.FullName</h4>
+                                                    <p class="text_pt">@items.Details</p>
+                                                    <p style="font-style: italic">@items.CreateDate.Value.ToString("dd/MM/yyyy")</p>
+                                                </div>
+                                            </a>
+
+                                            <a class="btn btn-danger btn-sm btn-delete" asp-id="@items.BookCommentId"
+                                               title="Xóa bình luận"><i class="bi bi-trash-fill"></i></a>
+                                        </li>
+                                    }
+                                }
+                            }
+                        </ul>
+                        <a asp-controller="BookComment" asp-action="Index" class="btn btn-warning p-2" style="margin-bottom:10px"><i class="bi bi-arrow-left-circle"></i> Quay lại</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).ready(function () {
+            $('body').on('click', '.btn-delete', function () {
+                _id = $(this).data("id");
+                Swal.fire({
+                    title: "Xác nhận xóa bình luận?",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Xác nhận",
+                    cancelButtonText: "Hủy"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: "/Admin/BookComment/Delete",
+                            type: "POST",
+                            data: { id: _id },
+                            success: function (rs) {
+                                if (rs) {
+                                    Swal.fire({
+                                        icon: "success",
+                                        title: "Xóa bình luận thành công thành công",
+                                        showConfirmButton: false,
+                                        timer: 700
+                                    });
+                                    setTimeout(function () {
+                                        window.location.href = "/Admin/BookComment/ListComment";
+                                    }, 700);
+                                }
+                                else {
+                                    toastr.error('Hủy không thành công');
+                                }
+                            }
+                        });
+                    }
+                });
+            })
+        })
+    </script>
+ 
+
+    }

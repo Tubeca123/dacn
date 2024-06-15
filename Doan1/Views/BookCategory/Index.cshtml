@@ -1,0 +1,68 @@
+﻿@using Doan1.Models;
+@using Doan1.Ulitities;
+@model IList<BookCategory>
+
+<style>
+    .overlay-text {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba(255, 255, 255, 0.8);
+        text-align: center;
+        padding: 10px;
+        margin: 0;
+    }
+
+    .product__item {
+        width: 100%; /* Đặt chiều rộng tối đa cho mỗi sản phẩm */
+        float: left;
+        box-sizing: border-box;
+        padding: 0 15px; /* Thêm padding để tạo khoảng cách giữa các sản phẩm */
+    }
+
+    .col-lg-3 {
+        width: 25%; /* 4 cột trên mỗi hàng */
+        float: left;
+    }
+
+    /* Dùng để đảm bảo mỗi hàng chỉ chứa 4 ảnh */
+    .row::after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+</style>
+
+<!-- Image Section Begin -->
+<section class="image-section">
+    <div class="container">
+        <div class="row">
+            @foreach (var items in Model)
+            {
+                <div class="col-lg-3">
+                    <div class="product__item">
+                        <div class="product__item__pic set-bg" data-setbg="@items.Image" style="border: 2px solid #ddd;">
+                            <div class="overlay-text">
+                                <h6>
+                                    <a asp-controller="Book" asp-action="List" asp-route-id="@items.BookCategoryID" style="color :black">@items.Name</a>
+                                </h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <div class="col-lg-12 text-center">
+                <div class="pagination__option">
+                    <a href="#">1</a>
+                    <a href="#">2</a>
+                    <a href="#">3</a>
+                    <a href="#"><i class="fa fa-angle-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Image Section End -->

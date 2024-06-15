@@ -1,0 +1,36 @@
+﻿@model Doan1.Models.Book
+
+<div class="container shadow p-5">
+    <div class="row pb-2">
+        <h2>Xóa sản phẩm</h2>
+    </div>
+    <main id="main" class="main">
+        <div class="pagetitle">
+            <h2>Xác nhận xóa sản phẩm</h2>
+        </div>
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">Mã sách</label>
+            <div class="col-sm-10">
+                <input asp-for="BookID" type="text" class="form-control">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">Tên sách</label>
+            <div class="col-sm-10">
+                <input asp-for="BookName" type="text" class="form-control">
+            </div>
+        </div>
+
+        <!-- Begin Form -->
+        <form asp-action="Delete" method="post">
+            <input type="hidden" asp-for="BookID" />
+            <a class="btn btn-lg btn-warning p-2 mr-5" href="javascript:history.back()">
+                <i class="bi bi-arrow-left-circle"></i> Quay lại
+            </a>
+            <button type="submit" class="btn btn-lg btn-danger p-2">
+                <i class="bi bi-trash-fill"></i> Xóa sản phẩm
+            </button>
+        </form>
+        <!-- End Form -->
+    </main>
+</div>

@@ -1,0 +1,73 @@
+﻿@model Doan1.Models.Blog;
+@using Doan1.Ulitities;
+<!-- Breadcrumb End -->
+<!-- Blog Details Section Begin -->
+<section class="blog-details spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-8">
+                <div class="blog__details__content">
+
+                    <div class="blog__details__item">
+                        <img src="@Model.Image" alt="">
+                        <div class="blog__details__item__title">
+                            
+                            <h4>Tiêu đề: @Model.Title</h4>
+                            <ul>
+                                <li>by <span>@Model.CreatedBy</span></li>
+                                <li>@Model.CreatedDate</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="blog__details__desc">
+                        <p>
+                            @Model.Abstract
+                        </p>
+                        
+                    </div>
+                    <div class="blog__details__quote">
+                        <div class="icon"><i class="fa fa-quote-left"></i></div>
+                        <p>
+                            Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore dolore magna
+                            aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                            aliquip ex ea commodo consequat.
+                        </p>
+                    </div>
+                    <div class="blog__details__desc">
+                        <p>
+                            Occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+                            laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+                            dolor in reprehenderit in voluptate.
+                        </p>
+                    </div>
+                    <div class="blog__details__tags">
+                        <a href="#">Fashion</a>
+                        <a href="#">Street style</a>
+                        <a href="#">Diversity</a>
+                        <a href="#">Beauty</a>
+                    </div>
+                    <div class="blog__details__btns">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="blog__details__btn__item">
+                                    <h6><a href="#"><i class="fa fa-angle-left"></i> Previous posts</a></h6>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="blog__details__btn__item blog__details__btn__item--next">
+                                    <h6><a href="#">Next posts <i class="fa fa-angle-right"></i></a></h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                </div>
+            </div>
+            
+            
+        </div>>
+    </div>
+</section>

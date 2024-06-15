@@ -1,0 +1,76 @@
+﻿@model Doan1.Areas.Admin.Models.Account;
+@using Doan1.Ulitities;
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<main id="main" class="main">
+
+
+    <div class="container shadow p-5">
+        <div class="row pb-2">
+            <h2>Chi tiết</h2>
+        </div>
+
+        <form method="post" asp-area="Admin" asp-controller="Account" asp-action="EditProfile">
+            <div asp-validation-summary="All"></div>
+
+            <div class="form-row">
+                <input type="text" class="form-control mb-3" asp-for="AccountId" type="hidden">
+            </div>
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label">Họ và tên</label>
+                <div class="col-sm-10">
+                    <input asp-for="FullName" type="text" class="form-control">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label">Tên người dùng</label>
+                <div class="col-sm-10">
+                    <input asp-for="UserName" type="text" class="form-control">
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label">Mô tả</label>
+                <div class="col-sm-10">
+                    <input asp-for="Abstract" type="text" class="form-control">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-10">
+                    <input asp-for="Email" type="text" class="form-control">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label">Địa chỉ</label>
+                <div class="col-sm-10">
+                    <input asp-for="Address" type="text" class="form-control">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label">Ngày sinh</label>
+                <div class="col-sm-10">
+                    <input type="date" class="form-control" asp-for="Birthday">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label">Số điện thoại </label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" asp-for="Phone">
+                </div>
+            </div>
+
+           
+            <div class="form-group at-3 mb-5">
+                <label>
+                    @Html.CheckBox("IsActive", Model.IsActive)
+                    Khóa hoạt động
+                </label>
+            </div>
+            @Html.HiddenFor(model => model.RoleID, new { @Value = "1" })
+            <button type="submit" class="btn btn-lg btn-primary p-2"><i class="bi bi-file-plus-fill"></i>Lưu</button> <a asp-controller="Account" asp-action="Index" class="btn btn-lg btn-warning p-2">Quay lại</a>
+        </form>
+    </div>
+</main>

@@ -1,0 +1,59 @@
+﻿@model Doan1.Models.Oder
+
+<div class="container shadow p-5">
+    <div class="row pb-2">
+        <h2>Xác nhận đơn hàng</h2>
+    </div>
+    <main id="main" class="main">
+        <div class="pagetitle">
+            <h2>Xác nhận đơn hàng</h2>
+        </div>
+
+        <!-- Display Order Details -->
+        <form method="post" asp-action="Update" id="orderForm">
+            <div asp-validation-summary="All"></div>
+
+            <div class="form-row">
+                <input class="form-control mb-3" asp-for="OderId" type="hidden">
+            </div>
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label">Mã đơn hàng</label>
+                <div class="col-sm-10">
+                    <input asp-for="Code" type="text" class="form-control" readonly />
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label">Tổng đơn hàng</label>
+                <div class="col-sm-10">
+                    <input asp-for="Total" type="text" class="form-control" readonly />
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label">Ngày tạo</label>
+                <div class="col-sm-10">
+                    <input asp-for="CreateDate" type="text" class="form-control" readonly />
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label">Mã khách hàng</label>
+                <div class="col-sm-10">
+                    <input asp-for="AccounId" type="text" class="form-control" readonly />
+                </div>
+            </div>
+            <input asp-for="Status" type="hidden" />
+            <button type="submit" class="btn btn-lg btn-primary p-2"><i class="bi bi-file-plus-fill"></i>Lưu</button> <a asp-controller="Oder" asp-action="Index1" class="btn btn-lg btn-warning p-2">Quay lại</a>
+        </form>
+
+
+        <!-- Begin Form -->
+
+        <!-- End Form -->
+    </main>
+</div>
+
+<script>
+    function incrementStatus() {
+        var statusInput = document.getElementById("statusInput");
+        statusInput.value = parseInt(statusInput.value) + 1;
+    }
+</script>

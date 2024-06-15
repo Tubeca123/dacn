@@ -1,0 +1,500 @@
+﻿﻿@Model IList<Doan1.Models.Oder>
+@using Doan1.Ulitities
+
+    <div class="col-lg-12">
+        <div class="product__details__tab">
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab">Chờ xác nhận</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">Đơn hàng đang tạo</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab">Đơn hàng đang giao</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#tabs-4" role="tab">Đơn hàng đã nhận</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#tabs-5" role="tab">Đơn hàng đã hủy</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tabs-1" role="tabpanel">
+                    <!-- Shop Cart Section Begin -->
+                    <section class="shop-cart spad">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="shop__cart__table">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>Mã đơn hàng111</th>
+                                                    <th>Tổng tiền</th>
+                                                    <th>Ngày tạo</th>
+                                                    <th>Trạng thái</th>
+                                                    <th>Chức năng</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in Model )
+                                                {
+
+                                                    if(@item.Status==1){
+                                                            <tr>
+                                                                <td class="cart__product__item">
+                                                                    @item.Code
+                                                                </td>
+                                                                <td class="cart__price">@item.Total VNĐ</td>
+                                                                <td class="cart__quantity">
+                                                                    @item.CreateDate
+                                                                </td>
+
+                                                                <td class="cart__total">
+                                                                    
+                                                                        <span>Chờ xác nhận</span>
+             
+                                                                </td>
+
+                                                                <td class="cart__close">
+
+                                                                    <a data-id="@item.OderId" class="btn-CancelStatus"><span class="icon_close">  </span></a>
+                                                                </td>
+                                                                <td class="cart__close">
+                                                                    <a asp-controller="Oder" asp-action="Detail" asp-route-id="@item.OderId"><span> <i class="bi bi-eye"></i> </span></a>
+
+                                                                </td>
+                                                            </tr>
+                                                            }
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <div class="cart__btn">
+                                        <a href="/home/index">Continue Shopping</a>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </section>
+                    <!-- Shop Cart Section End -->
+
+                </div>
+                <div class="tab-pane" id="tabs-2" role="tabpanel">
+                    <!-- Shop Cart Section Begin -->
+                    <section class="shop-cart spad">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="shop__cart__table">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>Mã đơn hàng222</th>
+                                                    <th>Tổng tiền</th>
+                                                    <th>Ngày tạo</th>
+                                                    <th>Trạng thái</th>
+                                                    <th>Chức năng</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var items in Model)
+                                                {
+
+                                                    if (@items.Status == 2)
+                                                    {
+                                                    <tr>
+                                                        <td class="cart__product__item">
+                                                            @items.Code
+                                                        </td>
+                                                        <td class="cart__price">@items.Total VNĐ</td>
+                                                        <td class="cart__quantity">
+                                                            @items.CreateDate
+                                                        </td>
+
+                                                        <td class="cart__total">
+                                                                <span>Đang chuẩn bị</span>
+                                                        </td>
+                                                            <td class="cart__close">
+
+                                                                <a data-id="@items.OderId" class="btn-CancelStatus"><span class="icon_close">  </span></a>
+                                                            </td>
+                                                            <td class="cart__close">
+                                                                <a asp-controller="Oder" asp-action="Detail" asp-route-id="@items.OderId"><span> <i class="bi bi-eye"></i> </span></a>
+
+                                                            </td>
+                                                    </tr>
+                                                    }
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <div class="cart__btn">
+                                        <a href="/home/index">Continue Shopping</a>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </section>
+                    <!-- Shop Cart Section End -->
+
+                </div>
+                <div class="tab-pane" id="tabs-3" role="tabpanel">
+                    <!-- Shop Cart Section Begin -->
+                    <section class="shop-cart spad">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="shop__cart__table">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>Mã đơn hàng333</th>
+                                                    <th>Tổng tiền</th>
+                                                    <th>Ngày tạo</th>
+                                                    <th>Trạng thái</th>
+                                                    <th>Chức năng</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var itemss in Model)
+                                                {
+
+                                                    if (@itemss.Status == 3)
+                                                    {
+                                                        <tr>
+                                                            <td class="cart__product__item">
+                                                                @itemss.Code
+                                                            </td>
+                                                            <td class="cart__price">@itemss.Total VNĐ</td>
+                                                            <td class="cart__quantity">
+                                                                @itemss.CreateDate
+                                                            </td>
+
+                                                            <td class="cart__total">
+                                                                <span>Đang vận chuyển</span>
+                                                            </td>
+                                                            <td class="cart__close">
+                                                                <a data-id="@itemss.OderId" class="btn-OkStatus"><span class="icon_like">  </span></a>
+                                                            </td>
+                                                            
+                                                            <td class="cart__close">
+                                                                <a asp-controller="Oder" asp-action="Detail" asp-route-id="@itemss.OderId"><span> <i class="bi bi-eye"></i> </span></a>
+
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <div class="cart__btn">
+                                        <a href="/home/index">Continue Shopping</a>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </section>
+                    <!-- Shop Cart Section End -->
+
+                </div>
+                <div class="tab-pane" id="tabs-3" role="tabpanel">
+                    <!-- Shop Cart Section Begin -->
+                    <section class="shop-cart spad">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="shop__cart__table">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>Mã đơn hàng333</th>
+                                                    <th>Tổng tiền</th>
+                                                    <th>Ngày tạo</th>
+                                                    <th>Trạng thái</th>
+                                                    <th>Chức năng</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var itemss in Model)
+                                                {
+
+                                                    if (@itemss.Status == 3)
+                                                    {
+                                                        <tr>
+                                                            <td class="cart__product__item">
+                                                                @itemss.Code
+                                                            </td>
+                                                            <td class="cart__price">@itemss.Total VNĐ</td>
+                                                            <td class="cart__quantity">
+                                                                @itemss.CreateDate
+                                                            </td>
+
+                                                            <td class="cart__total">
+                                                                <span>Đang vận chuyển</span>
+                                                            </td>
+                                                            <td class="cart__close">
+                                                                <a data-id="@itemss.OderId" class="btn-OkStatus"><span class="icon_like">  </span></a>
+                                                            </td>
+                                                            <td class="cart__close">
+
+                                                                <a data-id="@itemss.OderId" class="btn-CancelStatus"><span class="icon_close">  </span></a>
+                                                            </td>
+                                                            <td class="cart__close">
+                                                                <a asp-controller="Oder" asp-action="Detail" asp-route-id="@itemss.OderId"><span> <i class="bi bi-eye"></i> </span></a>
+
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <div class="cart__btn">
+                                        <a href="/home/index">Continue Shopping</a>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </section>
+                    <!-- Shop Cart Section End -->
+
+                </div>
+                <div class="tab-pane" id="tabs-4" role="tabpanel">
+                    <!-- Shop Cart Section Begin -->
+                    <section class="shop-cart spad">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="shop__cart__table">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>Mã đơn hàng333</th>
+                                                    <th>Tổng tiền</th>
+                                                    <th>Ngày tạo</th>
+                                                    <th>Trạng thái</th>
+                                                    <th>Chức năng</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var itemss in Model)
+                                                {
+
+                                                    if (@itemss.Status == 4)
+                                                    {
+                                                        <tr>
+                                                            <td class="cart__product__item">
+                                                                @itemss.Code
+                                                            </td>
+                                                            <td class="cart__price">@itemss.Total VNĐ</td>
+                                                            <td class="cart__quantity">
+                                                                @itemss.CreateDate
+                                                            </td>
+
+                                                            <td class="cart__total">
+                                                                <span>Đã nhận</span>
+                                                            </td>
+
+                                                            <td class="cart__close">
+                                                                <a asp-controller="Oder" asp-action="Detail" asp-route-id="@itemss.OderId"><span> <i class="bi bi-eye"></i> </span></a>
+
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <div class="cart__btn">
+                                        <a href="/home/index">Continue Shopping</a>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </section>
+                    <!-- Shop Cart Section End -->
+
+                </div>
+                <div class="tab-pane" id="tabs-5" role="tabpanel">
+                    <!-- Shop Cart Section Begin -->
+                    <section class="shop-cart spad">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="shop__cart__table">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>Mã đơn hàng333</th>
+                                                    <th>Tổng tiền</th>
+                                                    <th>Ngày tạo</th>
+                                                    <th>Trạng thái</th>
+                                                    <th>Chức năng</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var itemss in Model)
+                                                {
+
+                                                    if (@itemss.Status == 5)
+                                                    {
+                                                        <tr>
+                                                            <td class="cart__product__item">
+                                                                @itemss.Code
+                                                            </td>
+                                                            <td class="cart__price">@itemss.Total VNĐ</td>
+                                                            <td class="cart__quantity">
+                                                                @itemss.CreateDate
+                                                            </td>
+
+                                                            <td class="cart__total">
+                                                                <span>Đã hủy</span>
+                                                            </td>
+                                                            <td class="cart__close">
+                                                                <a asp-controller="Oder" asp-action="Detail" asp-route-id="@itemss.OderId"><span> <i class="bi bi-eye"></i> </span></a>
+
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <div class="cart__btn">
+                                        <a href="/home/index">Continue Shopping</a>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </section>
+                    <!-- Shop Cart Section End -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+@section Scripts {
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            $(document).ready(function () {
+                $('body').on('click', '.btn-CancelStatus', function () {
+                    _id = $(this).data("id");
+                    Swal.fire({
+                        title: "Xác nhận hủy đơn hàng?",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Xác nhận",
+                        cancelButtonText: "Hủy"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                url: "/Oder/Cancel",
+                                type: "POST",
+                                data: { id: _id },
+                                success: function (rs) {
+                                    if (rs) {
+                                        Swal.fire({
+                                            icon: "success",
+                                            title: "Hủy đơn hàng thành công",
+                                            showConfirmButton: false,
+                                            timer: 700
+                                        });
+                                        setTimeout(function () {
+                                            window.location.href = "/Oder/ListOder";
+                                        }, 700);
+                                    }
+                                    else {
+                                        toastr.error('Hủy không thành công');
+                                    }
+                                }
+                            });
+                        }
+                    });
+                })
+            })
+        </script>
+        <script>
+            $(document).ready(function () {
+                $('body').on('click', '.btn-OkStatus', function () {
+                    _id = $(this).data("id");
+                    Swal.fire({
+                        title: "Đã nhận đơn hàng?",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Xác nhận",
+                        cancelButtonText: "Hủy"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                url: "/Oder/Ok",
+                                type: "POST",
+                                data: { id: _id },
+                                success: function (rs) {
+                                    if (rs) {
+                                        Swal.fire({
+                                            icon: "success",
+                                            title: "Xác nhận thành công",
+                                            showConfirmButton: false,
+                                            timer: 700
+                                        });
+                                        setTimeout(function () {
+                                            window.location.href = "/Oder/ListOder";
+                                        }, 700);
+                                    }
+                                    else {
+                                        toastr.error('Không thành công');
+                                    }
+                                }
+                            });
+                        }
+                    });
+                })
+            })
+        </script>
+
+    }

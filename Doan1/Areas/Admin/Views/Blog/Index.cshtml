@@ -1,0 +1,60 @@
+﻿@using Doan1.Models;
+@model IList<Blog>;
+<main id="main" class="main">
+    <div class="Pagetitle">
+        <h2>Danh sách bài viết</h2>
+    </div>
+    <p>
+        <a type="button" class="btn btn-success" asp-area="Admin" asp-controller="Blog" asp-action="Create">
+            <i class="bi bi-file-earmark-text me-1">  Thêm bài viết</i>
+        </a>
+    </p>
+    <section class="section dashboard">
+        <div class="row">
+            <div col-12>
+                <div class="card recent-sales overflow-auto">
+                    <div class="card-boy mt-4">
+                        <table class="table table-borderless datatable">
+                            <thead>
+                                <tr>
+                                    <th class="col-1 text-center">Stt</th>
+                                    <th class="col-3 text-center">Hình ảnh </th>
+                                    <th class="col-8 text-center">Tiêu đề</th>
+                                    <th class="col-8 text-center">Chức Năng</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <th class="text-center" scope="row">@item.PostID</th>
+                                        <th class="text-center" scope="row"><img src="@item.Image" style="width:80px" /></th>
+                                        <td>
+                                            <a asp-area="Admin" asp-controller="Blog" asp-action="Edit"
+                                               asp-route-id="@item.PostID" class="text-primary">@item.Title</a>
+                                        </td>
+                                        <td class="text-center">
+                                            <a asp-area="Admin" asp-controller="Blog" asp-action="Edit"
+                                               asp-route-id="@item.PostID" class="btn btn-success btn-sm"
+                                               title="Xem chi tiết">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+                                            <a asp-area="Admin" asp-controller="Blog" asp-action="Delete"
+                                               asp-route-id="@item.PostID" class="btn btn-denger btn-sm"
+                                               title="Xóa bài viết">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+</main>

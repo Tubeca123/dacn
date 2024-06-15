@@ -1,0 +1,74 @@
+﻿@using Doan1.Ulitities;
+@model List<Doan1.Models.Book>
+<section class="product spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-4">
+                <div class="section-title">
+                    <h4>Sách mới</h4>
+                </div>
+            </div>
+        </div>
+        <div class="row property__gallery">
+            @foreach(var items in Model)
+            {
+            <div class="col-lg-3 col-md-4 col-sm-6 mix women">
+                <div class="product__item">
+                    <div class="product__item__pic set-bg" data-setbg="@items.Image" style="border: 2px solid #ddd;    ">
+                        <div class="label new">New</div>
+                        <ul class="product__hover">
+                            
+                            <li><a href="#" class="add-to-cart-new" data-id="@items.BookID"><span class="icon_bag_alt"></span></a></li>
+                        </ul>
+                    </div>
+                    <div class="product__item__text">
+                        <h6><a asp-controller="Book" asp-action="Details" asp-route-id="@items.BookID">@items.BookName</a></h6>
+                            @if (@items.PriceSale == 0)
+                            {
+                                <div class="product__price"> @items.Price VNĐ</div>
+                            }
+                            else
+                            {
+                                <div class="product__price">@(items.Price - items.PriceSale) VNĐ <span> @items.Price VNĐ</span></div>
+                            }
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".add-to-cart-new").click(function (e) {
+            e.preventDefault();
+            var bookId = $(this).data("id");
+            $.ajax({
+                url: "/Cart/AddToCart",
+                data: {
+                    id: bookId,
+                    quantity: 1
+                },
+                success: function (data) {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: "top-end",
+                        showConfirmButton: false,
+                        timer: 1000,
+                    });
+                    Toast.fire({
+                        icon: "success",
+                        title: "Thêm giỏ hàng thành công"
+                    });
+                    $("#cartItemCount").text(data.cartItemCount);
+                },
+                error: function () {
+                    toastr.error('Đã xảy ra lỗi!');
+                }
+            });
+        });
+    });
+</script>

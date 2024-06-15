@@ -1,0 +1,97 @@
+﻿@model Doan1.Areas.Admin.Models.Account  
+@using Doan1.Ulitities
+<main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Profile</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item">Users</li>
+          <li class="breadcrumb-item active">Profile</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section profile">
+      <div class="row">
+        <div class="col-xl-4">
+
+          <div class="card">
+            <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+
+              @if(Model.Avatar == null)
+              {
+                  <h6>Null</h6>
+              }
+                        else
+                        {
+                            <img src="@Model?.Avatar" alt="Profile" class="rounded-circle">
+                        }
+               <h2>@Model.UserName</h2>
+              <h3>@Model.Email</h3>
+              <div class="social-links mt-2">
+                <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-xl-8">
+          <div class="card">
+            <div class="card-body pt-3">
+              <div class="tab-content pt-2">
+                  
+                                    <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                                        <h5 class="card-title">Thông tin </h5>
+                                        <p class="small fst-italic">@Model.Abstract</p>
+
+                                        <h5 class="card-title">Chi tiết hồ sơ</h5>
+
+                                        <div class="row">
+                                            <div class="col-lg-3 col-md-4 label ">Họ tên</div>
+                                            <div class="col-lg-9 col-md-8">@Model.FullName</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-3 col-md-4 label ">Ngày sinh</div>
+                                            <div class="col-lg-9 col-md-8">@Model.Birthday?.ToString("dd/MM/yyyy")</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-3 col-md-4 label">Địa chỉ</div>
+                                            <div class="col-lg-9 col-md-8">@Model.Address</div>
+                                        </div>
+
+
+                                        <div class="row">
+                                            <div class="col-lg-3 col-md-4 label">Số điện thoại</div>
+                                            <div class="col-lg-9 col-md-8">@Model.Phone</div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-3 col-md-4 label">Email</div>
+                                            <div class="col-lg-9 col-md-8">@Model.Email</div>
+                                        </div>
+
+                                        <div class="text-center">
+                                        <a asp-controller="Profile" asp-action="Edit" asp-route-id="@Model.AccountId">
+											<button type="submit" class="btn btn-primary "> Sửa chi tiết</button>
+                                        </a>
+
+                                        </div>
+                                    </div>
+                  
+                
+                
+              </div><!-- End Bordered Tabs -->
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main><!-- End #main -->
